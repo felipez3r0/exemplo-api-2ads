@@ -1,0 +1,27 @@
+{
+  "name": "exemplo-api-2ads",
+  "version": "1.0.0",
+  "description": "Projeto didático de **API REST** construído em **TypeScript + Node + Express + SQLite**, seguindo uma arquitetura em camadas. O objetivo é servir como **referência passo a passo** para alunos do segundo semestre de Análise e Desenvolvimento de Sistemas que estão tendo o primeiro contato com desenvolvimento backend.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:init": "tsx src/database/init.ts",
+    "db:seed": "tsx src/database/seed.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}

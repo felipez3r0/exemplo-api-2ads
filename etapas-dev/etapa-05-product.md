@@ -22,13 +22,17 @@ Ao final, as operações de produto estão prontas para serem plugadas no agrega
 Crie **`src/repositories/product.repository.ts`** com exatamente este conteúdo:
 
 ```typescript
-import { db } from "../config/database";
-import { Product, CreateProductInput, UpdateProductInput } from "../models/product.model";
+import { db } from '../config/database';
+import {
+  Product,
+  CreateProductInput,
+  UpdateProductInput,
+} from '../models/product.model';
 
 export const productRepository = {
   findAll(): Promise<Product[]> {
     return new Promise((resolve, reject) => {
-      db.all("SELECT * FROM products ORDER BY id", (err, rows: Product[]) => {
+      db.all('SELECT * FROM products ORDER BY id', (err, rows: Product[]) => {
         if (err) reject(err);
         else resolve(rows);
       });
@@ -37,10 +41,14 @@ export const productRepository = {
 
   findById(id: number): Promise<Product | null> {
     return new Promise((resolve, reject) => {
-      db.get("SELECT * FROM products WHERE id = ?", [id], (err, row: Product | undefined) => {
-        if (err) reject(err);
-        else resolve(row ?? null);
-      });
+      db.get(
+        'SELECT * FROM products WHERE id = ?',
+        [id],
+        (err, row: Product | undefined) => {
+          if (err) reject(err);
+          else resolve(row ?? null);
+        },
+      );
     });
   },
 
@@ -48,12 +56,15 @@ export const productRepository = {
     return new Promise((resolve, reject) => {
       const { name, description, price } = input;
       db.run(
-        "INSERT INTO products (name, description, price) VALUES (?, ?, ?)",
+        'INSERT INTO products (name, description, price) VALUES (?, ?, ?)',
         [name, description ?? null, price],
         function (err) {
           if (err) return reject(err);
-          productRepository.findById(this.lastID).then((p) => resolve(p!)).catch(reject);
-        }
+          productRepository
+            .findById(this.lastID)
+            .then((p) => resolve(p!))
+            .catch(reject);
+        },
       );
     });
   },
@@ -62,22 +73,36 @@ export const productRepository = {
     return new Promise((resolve, reject) => {
       const fields: string[] = [];
       const values: unknown[] = [];
-      if (input.name !== undefined)        { fields.push("name = ?");        values.push(input.name); }
-      if (input.description !== undefined) { fields.push("description = ?"); values.push(input.description); }
-      if (input.price !== undefined)       { fields.push("price = ?");       values.push(input.price); }
-      if (fields.length === 0) return productRepository.findById(id).then(resolve).catch(reject);
+      if (input.name !== undefined) {
+        fields.push('name = ?');
+        values.push(input.name);
+      }
+      if (input.description !== undefined) {
+        fields.push('description = ?');
+        values.push(input.description);
+      }
+      if (input.price !== undefined) {
+        fields.push('price = ?');
+        values.push(input.price);
+      }
+      if (fields.length === 0)
+        return productRepository.findById(id).then(resolve).catch(reject);
 
       values.push(id);
-      db.run(`UPDATE products SET ${fields.join(", ")} WHERE id = ?`, values, (err) => {
-        if (err) return reject(err);
-        productRepository.findById(id).then(resolve).catch(reject);
-      });
+      db.run(
+        `UPDATE products SET ${fields.join(', ')} WHERE id = ?`,
+        values,
+        (err) => {
+          if (err) return reject(err);
+          productRepository.findById(id).then(resolve).catch(reject);
+        },
+      );
     });
   },
 
   delete(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      db.run("DELETE FROM products WHERE id = ?", [id], function (err) {
+      db.run('DELETE FROM products WHERE id = ?', [id], function (err) {
         if (err) reject(err);
         else resolve(this.changes > 0);
       });
@@ -87,19 +112,20 @@ export const productRepository = {
   existsInOrder(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       db.get(
-        "SELECT 1 FROM order_items WHERE product_id = ? LIMIT 1",
+        'SELECT 1 FROM order_items WHERE product_id = ? LIMIT 1',
         [id],
         (err, row) => {
           if (err) reject(err);
           else resolve(!!row);
-        }
+        },
       );
     });
-  }
+  },
 };
 ```
 
 > **Detalhes**:
+>
 > - O SQLite do driver `sqlite3` usa **callbacks**. Envolvemos em `Promise` para o código consumidor poder usar `async/await`.
 > - `function (err)` (função tradicional, não arrow) é necessária em `db.run` para acessar `this.lastID` e `this.changes`.
 > - `existsInOrder` serve à RN07, consultada pelo Service.
@@ -109,9 +135,12 @@ export const productRepository = {
 Crie **`src/services/product.service.ts`** com exatamente este conteúdo:
 
 ```typescript
-import { productRepository } from "../repositories/product.repository";
-import { CreateProductInput, UpdateProductInput } from "../models/product.model";
-import { AppError } from "../errors/app-error";
+import { productRepository } from '../repositories/product.repository';
+import {
+  CreateProductInput,
+  UpdateProductInput,
+} from '../models/product.model';
+import { AppError } from '../errors/app-error';
 
 export const productService = {
   list() {
@@ -120,7 +149,7 @@ export const productService = {
 
   async getById(id: number) {
     const product = await productRepository.findById(id);
-    if (!product) throw new AppError("Produto não encontrado", 404);
+    if (!product) throw new AppError('Produto não encontrado', 404);
     return product;
   },
 
@@ -137,10 +166,13 @@ export const productService = {
     await this.getById(id);
     // RN07: não pode remover produto que já está em pedido
     if (await productRepository.existsInOrder(id)) {
-      throw new AppError("Produto não pode ser removido: há pedidos associados", 409);
+      throw new AppError(
+        'Produto não pode ser removido: há pedidos associados',
+        409,
+      );
     }
     await productRepository.delete(id);
-  }
+  },
 };
 ```
 
@@ -149,63 +181,79 @@ export const productService = {
 Crie **`src/controllers/product.controller.ts`** com exatamente este conteúdo:
 
 ```typescript
-import { Request, Response, NextFunction } from "express";
-import { productService } from "../services/product.service";
-import { createProductSchema, updateProductSchema } from "../schemas/product.schema";
+import { Request, Response, NextFunction } from 'express';
+import { productService } from '../services/product.service';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '../schemas/product.schema';
 
 export const productController = {
   async list(_req: Request, res: Response, next: NextFunction) {
     try {
       res.json(await productService.list());
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       res.json(await productService.getById(Number(req.params.id)));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = createProductSchema.parse(req.body);
+      const parsed = createProductSchema.parse(req.body);
+      const data = { ...parsed, description: parsed.description ?? null };
       res.status(201).json(await productService.create(data));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const data = updateProductSchema.parse(req.body);
       res.json(await productService.update(Number(req.params.id), data));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async remove(req: Request, res: Response, next: NextFunction) {
     try {
       await productService.remove(Number(req.params.id));
       res.status(204).send();
-    } catch (err) { next(err); }
-  }
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 ```
 
 > **Padrão `try/catch + next(err)`**: todo erro é encaminhado ao middleware centralizado (etapa 08). O Controller **nunca** chama `res.status(500)` diretamente.
+
+> **Atenção — incompatibilidade de tipos entre Zod e o Model**: o schema define `description` como `z.string().optional()`, que resulta no tipo `string | undefined`. Já o model `CreateProductInput` (derivado de `Product`) declara `description: string | null`. Para compatibilizar, o método `create` do controller separa o parse do envio: primeiro extrai os dados com `parsed`, depois converte `undefined` para `null` com `parsed.description ?? null` antes de chamar o service.
 
 ### 4. Routes
 
 Crie **`src/routes/product.routes.ts`** com exatamente este conteúdo:
 
 ```typescript
-import { Router } from "express";
-import { productController } from "../controllers/product.controller";
+import { Router } from 'express';
+import { productController } from '../controllers/product.controller';
 
 const router = Router();
 
-router.get("/",       productController.list);
-router.get("/:id",    productController.getById);
-router.post("/",      productController.create);
-router.put("/:id",    productController.update);
-router.delete("/:id", productController.remove);
+router.get('/', productController.list);
+router.get('/:id', productController.getById);
+router.post('/', productController.create);
+router.put('/:id', productController.update);
+router.delete('/:id', productController.remove);
 
 export default router;
 ```

@@ -15,15 +15,17 @@ Cada etapa está documentada em um arquivo específico e implementada em uma bra
 |  01   | Setup inicial do projeto          | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md)                           | [`feat-etapa-01`](../../tree/feat-etapa-01) |
 |  02   | Banco de dados (schema e conexão) | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md)         | [`feat-etapa-02`](../../tree/feat-etapa-02) |
 |  03   | Models (interfaces TypeScript)    | [etapa-03-models.md](etapas-dev/etapa-03-models.md)                         | [`feat-etapa-03`](../../tree/feat-etapa-03) |
-|  04   | Erros e validações                | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) |               `feat-etapa-04`               |
-|  05   | Entidade Product (completa)       | [etapa-05-product.md](etapas-dev/etapa-05-product.md)                       |               `feat-etapa-05`               |
-|  06   | Entidade Customer (completa)      | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md)                     |               `feat-etapa-06`               |
-|  07   | Entidade Order (completa)         | [etapa-07-order.md](etapas-dev/etapa-07-order.md)                           |               `feat-etapa-07`               |
-|  08   | Agregador de rotas e middleware   | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) |               `feat-etapa-08`               |
-|  09   | App e server                      | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md)             |               `feat-etapa-09`               |
-|  10   | Seed e requests.http              | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md)       |               `feat-etapa-10`               |
+|  04   | Erros e validações                | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) | [`feat-etapa-04`](../../tree/feat-etapa-04) |
+|  05   | Entidade Product (completa)       | [etapa-05-product.md](etapas-dev/etapa-05-product.md)                       | [`feat-etapa-05`](../../tree/feat-etapa-05) |
+|  06   | Entidade Customer (completa)      | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md)                     | [`feat-etapa-06`](../../tree/feat-etapa-06) |
+|  07   | Entidade Order (completa)         | [etapa-07-order.md](etapas-dev/etapa-07-order.md)                           | [`feat-etapa-07`](../../tree/feat-etapa-07) |
+|  08   | Agregador de rotas e middleware   | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) | [`feat-etapa-08`](../../tree/feat-etapa-08) |
+|  09   | App e server                      | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md)             | [`feat-etapa-09`](../../tree/feat-etapa-09) |
+|  10   | Seed e requests.http              | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md)       | [`feat-etapa-10`](../../tree/feat-etapa-10) |
 
 > **Nota**: As branches serão criadas conforme cada etapa é implementada. Use `git checkout <nome-da-branch>` para acessar o código de uma etapa específica.
+
+> **Atenção (etapa 05)**: há uma incompatibilidade de tipos entre o schema Zod e o model de produto. O campo `description` no schema é `z.string().optional()` (`string | undefined`), mas o model declara `string | null`. O controller resolve isso convertendo `undefined → null` com `parsed.description ?? null` antes de repassar os dados ao service. Veja os detalhes em [etapa-05-product.md](etapas-dev/etapa-05-product.md).
 
 ---
 

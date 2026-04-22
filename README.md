@@ -10,18 +10,18 @@ Projeto didático de **API REST** construído em **TypeScript + Node + Express +
 
 Cada etapa está documentada em um arquivo específico e implementada em uma branch dedicada:
 
-| Etapa | Descrição | Documentação | Branch |
-|:---:|---|---|:---:|
-| 01 | Setup inicial do projeto | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md) | [`feat-etapa-01`](../../tree/feat-etapa-01) |
-| 02 | Banco de dados (schema e conexão) | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md) | `feat-etapa-02` |
-| 03 | Models (interfaces TypeScript) | [etapa-03-models.md](etapas-dev/etapa-03-models.md) | `feat-etapa-03` |
-| 04 | Erros e validações | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) | `feat-etapa-04` |
-| 05 | Entidade Product (completa) | [etapa-05-product.md](etapas-dev/etapa-05-product.md) | `feat-etapa-05` |
-| 06 | Entidade Customer (completa) | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md) | `feat-etapa-06` |
-| 07 | Entidade Order (completa) | [etapa-07-order.md](etapas-dev/etapa-07-order.md) | `feat-etapa-07` |
-| 08 | Agregador de rotas e middleware | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) | `feat-etapa-08` |
-| 09 | App e server | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md) | `feat-etapa-09` |
-| 10 | Seed e requests.http | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md) | `feat-etapa-10` |
+| Etapa | Descrição                         | Documentação                                                                |                   Branch                    |
+| :---: | --------------------------------- | --------------------------------------------------------------------------- | :-----------------------------------------: |
+|  01   | Setup inicial do projeto          | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md)                           | [`feat-etapa-01`](../../tree/feat-etapa-01) |
+|  02   | Banco de dados (schema e conexão) | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md)         |               `feat-etapa-02`               |
+|  03   | Models (interfaces TypeScript)    | [etapa-03-models.md](etapas-dev/etapa-03-models.md)                         |               `feat-etapa-03`               |
+|  04   | Erros e validações                | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) |               `feat-etapa-04`               |
+|  05   | Entidade Product (completa)       | [etapa-05-product.md](etapas-dev/etapa-05-product.md)                       |               `feat-etapa-05`               |
+|  06   | Entidade Customer (completa)      | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md)                     |               `feat-etapa-06`               |
+|  07   | Entidade Order (completa)         | [etapa-07-order.md](etapas-dev/etapa-07-order.md)                           |               `feat-etapa-07`               |
+|  08   | Agregador de rotas e middleware   | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) |               `feat-etapa-08`               |
+|  09   | App e server                      | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md)             |               `feat-etapa-09`               |
+|  10   | Seed e requests.http              | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md)       |               `feat-etapa-10`               |
 
 > **Nota**: As branches serão criadas conforme cada etapa é implementada. Use `git checkout <nome-da-branch>` para acessar o código de uma etapa específica.
 
@@ -62,14 +62,14 @@ npm --version
 
 ## 2. Tecnologias e por que usamos cada uma
 
-| Tecnologia | Papel no projeto | Por que esta escolha |
-|---|---|---|
-| **TypeScript** | Linguagem | Adiciona tipos ao JavaScript — o editor avisa de erros antes de rodar e ajuda a entender o fluxo de dados entre camadas. |
-| **Node.js** | Runtime | Executa o JavaScript fora do navegador. É o motor do nosso servidor. |
-| **Express** | Framework HTTP | Simplifica a criação de rotas, o parse de JSON e o uso de middlewares. |
-| **sqlite3** | Banco de dados | Banco relacional em arquivo único, sem servidor. Perfeito para aprendizado. |
-| **Zod** | Validação | Garante que os dados que chegam nos endpoints estão no formato esperado. |
-| **tsx** | Executor de TS em dev | Roda arquivos TypeScript direto, com reload automático. |
+| Tecnologia     | Papel no projeto      | Por que esta escolha                                                                                                     |
+| -------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **TypeScript** | Linguagem             | Adiciona tipos ao JavaScript — o editor avisa de erros antes de rodar e ajuda a entender o fluxo de dados entre camadas. |
+| **Node.js**    | Runtime               | Executa o JavaScript fora do navegador. É o motor do nosso servidor.                                                     |
+| **Express**    | Framework HTTP        | Simplifica a criação de rotas, o parse de JSON e o uso de middlewares.                                                   |
+| **sqlite3**    | Banco de dados        | Banco relacional em arquivo único, sem servidor. Perfeito para aprendizado.                                              |
+| **Zod**        | Validação             | Garante que os dados que chegam nos endpoints estão no formato esperado.                                                 |
+| **tsx**        | Executor de TS em dev | Roda arquivos TypeScript direto, com reload automático.                                                                  |
 
 ---
 
@@ -108,7 +108,7 @@ A aplicação é organizada em **camadas**, onde cada camada **só conversa com 
 
 - **Model**: descreve o **formato dos dados**. No nosso projeto, os Models são **interfaces TypeScript** (`Product`, `Customer`, `Order`, `OrderItem`).
 - **Repository**: a **única camada que fala com o banco**. Contém o SQL. Devolve dados como objetos simples.
-- **Service**: contém as **regras de negócio**. Decide *o que* pode e *o que* não pode acontecer (ex.: "e-mail duplicado não é permitido"). Não conhece HTTP nem SQL.
+- **Service**: contém as **regras de negócio**. Decide _o que_ pode e _o que_ não pode acontecer (ex.: "e-mail duplicado não é permitido"). Não conhece HTTP nem SQL.
 - **Controller**: adapta o **mundo HTTP** para o **mundo do Service**. Lê `req.body`, `req.params`, chama o Service, devolve `res.status(...).json(...)`.
 - **Routes**: liga **URL + método HTTP** a uma função do Controller.
 
@@ -173,18 +173,18 @@ exemplo-api-2ads/
 
 > **Roteiro em etapas (para quem está automatizando com IA)**: cada grupo de passos desta seção também está descrito de forma mais detalhada e autocontida em [etapas-dev/](etapas-dev/). Cada arquivo tem pré-requisitos, código completo e critérios de verificação, permitindo que um agente de IA mais simples execute a etapa sem precisar cruzar informação com o restante do README.
 >
-> | Etapa | Passos cobertos | Link |
-> |---|---|---|
-> | 01 — Setup inicial | 1 a 7 | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md) |
-> | 02 — Banco de dados | 8 a 10 | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md) |
-> | 03 — Models | 11 | [etapa-03-models.md](etapas-dev/etapa-03-models.md) |
-> | 04 — Erros e validações | 12 e 13 | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) |
-> | 05 — Entidade Product | 14 | [etapa-05-product.md](etapas-dev/etapa-05-product.md) |
-> | 06 — Entidade Customer | 15 | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md) |
-> | 07 — Entidade Order | 16 | [etapa-07-order.md](etapas-dev/etapa-07-order.md) |
-> | 08 — Agregador de rotas e middleware | 17 e 18 | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) |
-> | 09 — App e server | 19 e 20 | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md) |
-> | 10 — Seed e `requests.http` | 21 e 22 | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md) |
+> | Etapa                                | Passos cobertos | Link                                                                        |
+> | ------------------------------------ | --------------- | --------------------------------------------------------------------------- |
+> | 01 — Setup inicial                   | 1 a 7           | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md)                           |
+> | 02 — Banco de dados                  | 8 a 10          | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md)         |
+> | 03 — Models                          | 11              | [etapa-03-models.md](etapas-dev/etapa-03-models.md)                         |
+> | 04 — Erros e validações              | 12 e 13         | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) |
+> | 05 — Entidade Product                | 14              | [etapa-05-product.md](etapas-dev/etapa-05-product.md)                       |
+> | 06 — Entidade Customer               | 15              | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md)                     |
+> | 07 — Entidade Order                  | 16              | [etapa-07-order.md](etapas-dev/etapa-07-order.md)                           |
+> | 08 — Agregador de rotas e middleware | 17 e 18         | [etapa-08-rotas-e-middleware.md](etapas-dev/etapa-08-rotas-e-middleware.md) |
+> | 09 — App e server                    | 19 e 20         | [etapa-09-app-e-server.md](etapas-dev/etapa-09-app-e-server.md)             |
+> | 10 — Seed e `requests.http`          | 21 e 22         | [etapa-10-seed-e-requests.md](etapas-dev/etapa-10-seed-e-requests.md)       |
 
 ### Passo 1 — Inicializar o projeto
 
@@ -319,22 +319,22 @@ CREATE TABLE IF NOT EXISTS order_items (
 Crie `src/database/init.ts`:
 
 ```typescript
-import sqlite3 from "sqlite3";
-import fs from "fs";
-import path from "path";
+import sqlite3 from 'sqlite3';
+import fs from 'fs';
+import path from 'path';
 
-const dbPath = path.resolve(__dirname, "../../database.db");
-const schemaPath = path.resolve(__dirname, "schema.sql");
+const dbPath = path.resolve(__dirname, '../../database.db');
+const schemaPath = path.resolve(__dirname, 'schema.sql');
 
-const schema = fs.readFileSync(schemaPath, "utf-8");
+const schema = fs.readFileSync(schemaPath, 'utf-8');
 const db = new sqlite3.Database(dbPath);
 
 db.exec(schema, (err) => {
   if (err) {
-    console.error("Erro ao criar o schema:", err);
+    console.error('Erro ao criar o schema:', err);
     process.exit(1);
   }
-  console.log("Banco inicializado com sucesso em", dbPath);
+  console.log('Banco inicializado com sucesso em', dbPath);
   db.close();
 });
 ```
@@ -344,19 +344,19 @@ db.exec(schema, (err) => {
 Crie `src/config/database.ts`:
 
 ```typescript
-import sqlite3 from "sqlite3";
-import path from "path";
+import sqlite3 from 'sqlite3';
+import path from 'path';
 
-const dbPath = path.resolve(__dirname, "../../database.db");
+const dbPath = path.resolve(__dirname, '../../database.db');
 
 export const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error("Erro ao conectar ao banco:", err);
+    console.error('Erro ao conectar ao banco:', err);
     process.exit(1);
   }
 });
 
-db.run("PRAGMA foreign_keys = ON;");
+db.run('PRAGMA foreign_keys = ON;');
 ```
 
 > **Por que `PRAGMA foreign_keys = ON`?** Por padrão, o SQLite **não** aplica as regras de chave estrangeira. Essa linha liga a verificação.
@@ -376,7 +376,7 @@ export interface Product {
   created_at: string;
 }
 
-export type CreateProductInput = Omit<Product, "id" | "created_at">;
+export type CreateProductInput = Omit<Product, 'id' | 'created_at'>;
 export type UpdateProductInput = Partial<CreateProductInput>;
 ```
 
@@ -391,7 +391,7 @@ export interface Customer {
   created_at: string;
 }
 
-export type CreateCustomerInput = Omit<Customer, "id" | "created_at">;
+export type CreateCustomerInput = Omit<Customer, 'id' | 'created_at'>;
 export type UpdateCustomerInput = Partial<CreateCustomerInput>;
 ```
 
@@ -431,7 +431,10 @@ Crie `src/errors/app-error.ts`:
 
 ```typescript
 export class AppError extends Error {
-  constructor(public message: string, public statusCode = 400) {
+  constructor(
+    public message: string,
+    public statusCode = 400,
+  ) {
     super(message);
   }
 }
@@ -444,12 +447,12 @@ export class AppError extends Error {
 **`src/schemas/product.schema.ts`**
 
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 export const createProductSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
-  price: z.number().positive()
+  price: z.number().positive(),
 });
 
 export const updateProductSchema = createProductSchema.partial();
@@ -458,12 +461,12 @@ export const updateProductSchema = createProductSchema.partial();
 **`src/schemas/customer.schema.ts`**
 
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 export const createCustomerSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
-  phone: z.string().optional()
+  phone: z.string().optional(),
 });
 
 export const updateCustomerSchema = createCustomerSchema.partial();
@@ -472,7 +475,7 @@ export const updateCustomerSchema = createCustomerSchema.partial();
 **`src/schemas/order.schema.ts`**
 
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 export const createOrderSchema = z.object({
   customer_id: z.number().int().positive(),
@@ -480,10 +483,10 @@ export const createOrderSchema = z.object({
     .array(
       z.object({
         product_id: z.number().int().positive(),
-        quantity: z.number().int().positive()
-      })
+        quantity: z.number().int().positive(),
+      }),
     )
-    .min(1)
+    .min(1),
 });
 ```
 
@@ -495,18 +498,22 @@ Vamos implementar a entidade mais simples primeiro (ela não depende de nenhuma 
 
 #### 14.1. Repository
 
-O SQLite original usa callbacks. Para deixar o código mais limpo, vamos usar o padrão *Promise wrapper*.
+O SQLite original usa callbacks. Para deixar o código mais limpo, vamos usar o padrão _Promise wrapper_.
 
 **`src/repositories/product.repository.ts`**
 
 ```typescript
-import { db } from "../config/database";
-import { Product, CreateProductInput, UpdateProductInput } from "../models/product.model";
+import { db } from '../config/database';
+import {
+  Product,
+  CreateProductInput,
+  UpdateProductInput,
+} from '../models/product.model';
 
 export const productRepository = {
   findAll(): Promise<Product[]> {
     return new Promise((resolve, reject) => {
-      db.all("SELECT * FROM products ORDER BY id", (err, rows: Product[]) => {
+      db.all('SELECT * FROM products ORDER BY id', (err, rows: Product[]) => {
         if (err) reject(err);
         else resolve(rows);
       });
@@ -515,10 +522,14 @@ export const productRepository = {
 
   findById(id: number): Promise<Product | null> {
     return new Promise((resolve, reject) => {
-      db.get("SELECT * FROM products WHERE id = ?", [id], (err, row: Product | undefined) => {
-        if (err) reject(err);
-        else resolve(row ?? null);
-      });
+      db.get(
+        'SELECT * FROM products WHERE id = ?',
+        [id],
+        (err, row: Product | undefined) => {
+          if (err) reject(err);
+          else resolve(row ?? null);
+        },
+      );
     });
   },
 
@@ -526,12 +537,15 @@ export const productRepository = {
     return new Promise((resolve, reject) => {
       const { name, description, price } = input;
       db.run(
-        "INSERT INTO products (name, description, price) VALUES (?, ?, ?)",
+        'INSERT INTO products (name, description, price) VALUES (?, ?, ?)',
         [name, description ?? null, price],
         function (err) {
           if (err) return reject(err);
-          productRepository.findById(this.lastID).then((p) => resolve(p!)).catch(reject);
-        }
+          productRepository
+            .findById(this.lastID)
+            .then((p) => resolve(p!))
+            .catch(reject);
+        },
       );
     });
   },
@@ -540,22 +554,36 @@ export const productRepository = {
     return new Promise((resolve, reject) => {
       const fields: string[] = [];
       const values: unknown[] = [];
-      if (input.name !== undefined)        { fields.push("name = ?");        values.push(input.name); }
-      if (input.description !== undefined) { fields.push("description = ?"); values.push(input.description); }
-      if (input.price !== undefined)       { fields.push("price = ?");       values.push(input.price); }
-      if (fields.length === 0) return productRepository.findById(id).then(resolve).catch(reject);
+      if (input.name !== undefined) {
+        fields.push('name = ?');
+        values.push(input.name);
+      }
+      if (input.description !== undefined) {
+        fields.push('description = ?');
+        values.push(input.description);
+      }
+      if (input.price !== undefined) {
+        fields.push('price = ?');
+        values.push(input.price);
+      }
+      if (fields.length === 0)
+        return productRepository.findById(id).then(resolve).catch(reject);
 
       values.push(id);
-      db.run(`UPDATE products SET ${fields.join(", ")} WHERE id = ?`, values, (err) => {
-        if (err) return reject(err);
-        productRepository.findById(id).then(resolve).catch(reject);
-      });
+      db.run(
+        `UPDATE products SET ${fields.join(', ')} WHERE id = ?`,
+        values,
+        (err) => {
+          if (err) return reject(err);
+          productRepository.findById(id).then(resolve).catch(reject);
+        },
+      );
     });
   },
 
   delete(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      db.run("DELETE FROM products WHERE id = ?", [id], function (err) {
+      db.run('DELETE FROM products WHERE id = ?', [id], function (err) {
         if (err) reject(err);
         else resolve(this.changes > 0);
       });
@@ -565,15 +593,15 @@ export const productRepository = {
   existsInOrder(id: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       db.get(
-        "SELECT 1 FROM order_items WHERE product_id = ? LIMIT 1",
+        'SELECT 1 FROM order_items WHERE product_id = ? LIMIT 1',
         [id],
         (err, row) => {
           if (err) reject(err);
           else resolve(!!row);
-        }
+        },
       );
     });
-  }
+  },
 };
 ```
 
@@ -582,9 +610,12 @@ export const productRepository = {
 **`src/services/product.service.ts`**
 
 ```typescript
-import { productRepository } from "../repositories/product.repository";
-import { CreateProductInput, UpdateProductInput } from "../models/product.model";
-import { AppError } from "../errors/app-error";
+import { productRepository } from '../repositories/product.repository';
+import {
+  CreateProductInput,
+  UpdateProductInput,
+} from '../models/product.model';
+import { AppError } from '../errors/app-error';
 
 export const productService = {
   list() {
@@ -593,7 +624,7 @@ export const productService = {
 
   async getById(id: number) {
     const product = await productRepository.findById(id);
-    if (!product) throw new AppError("Produto não encontrado", 404);
+    if (!product) throw new AppError('Produto não encontrado', 404);
     return product;
   },
 
@@ -610,10 +641,13 @@ export const productService = {
     await this.getById(id);
     // RN07: não pode remover produto que já está em pedido
     if (await productRepository.existsInOrder(id)) {
-      throw new AppError("Produto não pode ser removido: há pedidos associados", 409);
+      throw new AppError(
+        'Produto não pode ser removido: há pedidos associados',
+        409,
+      );
     }
     await productRepository.delete(id);
-  }
+  },
 };
 ```
 
@@ -622,43 +656,56 @@ export const productService = {
 **`src/controllers/product.controller.ts`**
 
 ```typescript
-import { Request, Response, NextFunction } from "express";
-import { productService } from "../services/product.service";
-import { createProductSchema, updateProductSchema } from "../schemas/product.schema";
+import { Request, Response, NextFunction } from 'express';
+import { productService } from '../services/product.service';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from '../schemas/product.schema';
 
 export const productController = {
   async list(_req: Request, res: Response, next: NextFunction) {
     try {
       res.json(await productService.list());
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
       res.json(await productService.getById(Number(req.params.id)));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const data = createProductSchema.parse(req.body);
       res.status(201).json(await productService.create(data));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const data = updateProductSchema.parse(req.body);
       res.json(await productService.update(Number(req.params.id), data));
-    } catch (err) { next(err); }
+    } catch (err) {
+      next(err);
+    }
   },
 
   async remove(req: Request, res: Response, next: NextFunction) {
     try {
       await productService.remove(Number(req.params.id));
       res.status(204).send();
-    } catch (err) { next(err); }
-  }
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 ```
 
@@ -667,16 +714,16 @@ export const productController = {
 **`src/routes/product.routes.ts`**
 
 ```typescript
-import { Router } from "express";
-import { productController } from "../controllers/product.controller";
+import { Router } from 'express';
+import { productController } from '../controllers/product.controller';
 
 const router = Router();
 
-router.get("/",       productController.list);
-router.get("/:id",    productController.getById);
-router.post("/",      productController.create);
-router.put("/:id",    productController.update);
-router.delete("/:id", productController.remove);
+router.get('/', productController.list);
+router.get('/:id', productController.getById);
+router.post('/', productController.create);
+router.put('/:id', productController.update);
+router.delete('/:id', productController.remove);
 
 export default router;
 ```
@@ -686,6 +733,7 @@ export default router;
 > Etapa detalhada: [etapas-dev/etapa-06-customer.md](etapas-dev/etapa-06-customer.md).
 
 A estrutura é idêntica à de Product. Aplique as regras:
+
 - **RN01**: e-mail único → antes de criar/atualizar, verifique se o e-mail já existe com outro `id`. Se existir, lance `new AppError("E-mail já cadastrado", 409)`.
 - **RN06**: não remover cliente com pedidos → crie um método `existsInOrder(customerId)` no repository, análogo ao de product.
 
@@ -709,83 +757,114 @@ A criação de um pedido envolve **mais de uma tabela** (`orders` + `order_items
 **`src/repositories/order.repository.ts`** (esqueleto)
 
 ```typescript
-import { db } from "../config/database";
-import { Order, OrderItem, OrderWithItems } from "../models/order.model";
+import { db } from '../config/database';
+import { Order, OrderItem, OrderWithItems } from '../models/order.model';
 
 export const orderRepository = {
   createOrder(customerId: number, total: number): Promise<number> {
     return new Promise((resolve, reject) => {
       db.run(
-        "INSERT INTO orders (customer_id, total) VALUES (?, ?)",
+        'INSERT INTO orders (customer_id, total) VALUES (?, ?)',
         [customerId, total],
-        function (err) { err ? reject(err) : resolve(this.lastID); }
+        function (err) {
+          err ? reject(err) : resolve(this.lastID);
+        },
       );
     });
   },
 
-  addItem(orderId: number, productId: number, quantity: number, unitPrice: number): Promise<void> {
+  addItem(
+    orderId: number,
+    productId: number,
+    quantity: number,
+    unitPrice: number,
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
       db.run(
-        "INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)",
+        'INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)',
         [orderId, productId, quantity, unitPrice],
-        (err) => err ? reject(err) : resolve()
+        (err) => (err ? reject(err) : resolve()),
       );
     });
   },
 
   findById(id: number): Promise<OrderWithItems | null> {
     return new Promise((resolve, reject) => {
-      db.get("SELECT * FROM orders WHERE id = ?", [id], (err, order: Order | undefined) => {
-        if (err) return reject(err);
-        if (!order) return resolve(null);
-        db.all("SELECT * FROM order_items WHERE order_id = ?", [id], (err2, items: OrderItem[]) => {
-          if (err2) reject(err2);
-          else resolve({ ...order, items });
-        });
-      });
+      db.get(
+        'SELECT * FROM orders WHERE id = ?',
+        [id],
+        (err, order: Order | undefined) => {
+          if (err) return reject(err);
+          if (!order) return resolve(null);
+          db.all(
+            'SELECT * FROM order_items WHERE order_id = ?',
+            [id],
+            (err2, items: OrderItem[]) => {
+              if (err2) reject(err2);
+              else resolve({ ...order, items });
+            },
+          );
+        },
+      );
     });
   },
 
-  findAll(): Promise<Order[]> { /* SELECT * FROM orders ORDER BY id DESC */ return new Promise((r) => r([])); },
-  findByCustomerId(customerId: number): Promise<Order[]> { /* similar, filtrado */ return new Promise((r) => r([])); }
+  findAll(): Promise<Order[]> {
+    /* SELECT * FROM orders ORDER BY id DESC */ return new Promise((r) =>
+      r([]),
+    );
+  },
+  findByCustomerId(customerId: number): Promise<Order[]> {
+    /* similar, filtrado */ return new Promise((r) => r([]));
+  },
 };
 ```
 
 **`src/services/order.service.ts`** (essência)
 
 ```typescript
-import { orderRepository } from "../repositories/order.repository";
-import { productRepository } from "../repositories/product.repository";
-import { customerRepository } from "../repositories/customer.repository";
-import { CreateOrderInput } from "../models/order.model";
-import { AppError } from "../errors/app-error";
+import { orderRepository } from '../repositories/order.repository';
+import { productRepository } from '../repositories/product.repository';
+import { customerRepository } from '../repositories/customer.repository';
+import { CreateOrderInput } from '../models/order.model';
+import { AppError } from '../errors/app-error';
 
 export const orderService = {
   async create(input: CreateOrderInput) {
     const customer = await customerRepository.findById(input.customer_id);
-    if (!customer) throw new AppError("Cliente não encontrado", 404);
+    if (!customer) throw new AppError('Cliente não encontrado', 404);
 
-    const prepared: Array<{ product_id: number; quantity: number; unit_price: number }> = [];
+    const prepared: Array<{
+      product_id: number;
+      quantity: number;
+      unit_price: number;
+    }> = [];
     let total = 0;
 
     for (const item of input.items) {
       const product = await productRepository.findById(item.product_id);
-      if (!product) throw new AppError(`Produto ${item.product_id} não encontrado`, 404);
+      if (!product)
+        throw new AppError(`Produto ${item.product_id} não encontrado`, 404);
 
       prepared.push({
         product_id: product.id,
         quantity: item.quantity,
-        unit_price: product.price  // RN05: fotografia do preço no momento da venda
+        unit_price: product.price, // RN05: fotografia do preço no momento da venda
       });
       total += product.price * item.quantity;
     }
 
     const orderId = await orderRepository.createOrder(input.customer_id, total);
     for (const it of prepared) {
-      await orderRepository.addItem(orderId, it.product_id, it.quantity, it.unit_price);
+      await orderRepository.addItem(
+        orderId,
+        it.product_id,
+        it.quantity,
+        it.unit_price,
+      );
     }
     return orderRepository.findById(orderId);
-  }
+  },
   // ...getById, list, listByCustomer
 };
 ```
@@ -799,16 +878,16 @@ Controller e Routes seguem o mesmo padrão dos anteriores.
 **`src/routes/index.ts`**
 
 ```typescript
-import { Router } from "express";
-import productRoutes from "./product.routes";
-import customerRoutes from "./customer.routes";
-import orderRoutes from "./order.routes";
+import { Router } from 'express';
+import productRoutes from './product.routes';
+import customerRoutes from './customer.routes';
+import orderRoutes from './order.routes';
 
 const router = Router();
 
-router.use("/products", productRoutes);
-router.use("/customers", customerRoutes);
-router.use("/orders", orderRoutes);
+router.use('/products', productRoutes);
+router.use('/customers', customerRoutes);
+router.use('/orders', orderRoutes);
 
 export default router;
 ```
@@ -818,19 +897,26 @@ export default router;
 **`src/middlewares/error-handler.ts`**
 
 ```typescript
-import { Request, Response, NextFunction } from "express";
-import { ZodError } from "zod";
-import { AppError } from "../errors/app-error";
+import { Request, Response, NextFunction } from 'express';
+import { ZodError } from 'zod';
+import { AppError } from '../errors/app-error';
 
-export function errorHandler(err: unknown, _req: Request, res: Response, _next: NextFunction) {
+export function errorHandler(
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   if (err instanceof ZodError) {
-    return res.status(400).json({ error: "Dados inválidos", details: err.issues });
+    return res
+      .status(400)
+      .json({ error: 'Dados inválidos', details: err.issues });
   }
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({ error: err.message });
   }
   console.error(err);
-  return res.status(500).json({ error: "Erro interno no servidor" });
+  return res.status(500).json({ error: 'Erro interno no servidor' });
 }
 ```
 
@@ -843,15 +929,15 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
 **`src/app.ts`**
 
 ```typescript
-import express from "express";
-import routes from "./routes";
-import { errorHandler } from "./middlewares/error-handler";
+import express from 'express';
+import routes from './routes';
+import { errorHandler } from './middlewares/error-handler';
 
 export const app = express();
 
 app.use(express.json());
 app.use(routes);
-app.use(errorHandler);   // sempre por último
+app.use(errorHandler); // sempre por último
 ```
 
 ### Passo 20 — Subindo o servidor (`server.ts`)
@@ -859,7 +945,7 @@ app.use(errorHandler);   // sempre por último
 **`src/server.ts`**
 
 ```typescript
-import { app } from "./app";
+import { app } from './app';
 
 const PORT = 3000;
 
@@ -875,22 +961,42 @@ app.listen(PORT, () => {
 **`src/database/seed.ts`**
 
 ```typescript
-import { db } from "../config/database";
+import { db } from '../config/database';
 
 db.serialize(() => {
-  db.run("DELETE FROM order_items");
-  db.run("DELETE FROM orders");
-  db.run("DELETE FROM products");
-  db.run("DELETE FROM customers");
+  db.run('DELETE FROM order_items');
+  db.run('DELETE FROM orders');
+  db.run('DELETE FROM products');
+  db.run('DELETE FROM customers');
 
-  db.run("INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)", ["Maria Silva", "maria@email.com", "11999990001"]);
-  db.run("INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)", ["João Pereira", "joao@email.com", "11999990002"]);
+  db.run('INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)', [
+    'Maria Silva',
+    'maria@email.com',
+    '11999990001',
+  ]);
+  db.run('INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)', [
+    'João Pereira',
+    'joao@email.com',
+    '11999990002',
+  ]);
 
-  db.run("INSERT INTO products (name, description, price) VALUES (?, ?, ?)", ["Arroz 5kg", "Arroz branco tipo 1", 28.90]);
-  db.run("INSERT INTO products (name, description, price) VALUES (?, ?, ?)", ["Feijão 1kg", "Feijão carioca", 9.50]);
-  db.run("INSERT INTO products (name, description, price) VALUES (?, ?, ?)", ["Óleo de Soja 900ml", null, 7.20]);
+  db.run('INSERT INTO products (name, description, price) VALUES (?, ?, ?)', [
+    'Arroz 5kg',
+    'Arroz branco tipo 1',
+    28.9,
+  ]);
+  db.run('INSERT INTO products (name, description, price) VALUES (?, ?, ?)', [
+    'Feijão 1kg',
+    'Feijão carioca',
+    9.5,
+  ]);
+  db.run('INSERT INTO products (name, description, price) VALUES (?, ?, ?)', [
+    'Óleo de Soja 900ml',
+    null,
+    7.2,
+  ]);
 
-  console.log("Seed executado com sucesso.");
+  console.log('Seed executado com sucesso.');
 });
 ```
 
@@ -919,6 +1025,7 @@ npm run dev
 O servidor ficará disponível em `http://localhost:3000`.
 
 Para **testar os endpoints** sem precisar do Postman ou Insomnia:
+
 1. Instale a extensão **REST Client** no VS Code.
 2. Abra o arquivo `requests.http`.
 3. Clique em **Send Request** acima de cada requisição.
@@ -998,15 +1105,15 @@ GET http://localhost:3000/orders/1
 
 ### Códigos de status esperados
 
-| Ação | Status |
-|---|---|
-| GET com sucesso | 200 |
-| POST com sucesso (criação) | 201 |
-| DELETE com sucesso | 204 |
-| Dados inválidos | 400 |
-| Recurso não encontrado | 404 |
-| Conflito (ex.: e-mail duplicado, produto em uso) | 409 |
-| Erro inesperado | 500 |
+| Ação                                             | Status |
+| ------------------------------------------------ | ------ |
+| GET com sucesso                                  | 200    |
+| POST com sucesso (criação)                       | 201    |
+| DELETE com sucesso                               | 204    |
+| Dados inválidos                                  | 400    |
+| Recurso não encontrado                           | 404    |
+| Conflito (ex.: e-mail duplicado, produto em uso) | 409    |
+| Erro inesperado                                  | 500    |
 
 ---
 

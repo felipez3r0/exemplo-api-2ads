@@ -168,7 +168,8 @@ export const productController = {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const data = createProductSchema.parse(req.body);
+      const parsed = createProductSchema.parse(req.body);
+      const data = { ...parsed, description: parsed.description ?? null };
       res.status(201).json(await productService.create(data));
     } catch (err) { next(err); }
   },
@@ -190,6 +191,8 @@ export const productController = {
 ```
 
 > **Padrão `try/catch + next(err)`**: todo erro é encaminhado ao middleware centralizado (etapa 08). O Controller **nunca** chama `res.status(500)` diretamente.
+
+> **Atenção — incompatibilidade de tipos entre Zod e o Model**: o schema define `description` como `z.string().optional()`, que resulta no tipo `string | undefined`. Já o model `CreateProductInput` (derivado de `Product`) declara `description: string | null`. Para compatibilizar, o método `create` do controller separa o parse do envio: primeiro extrai os dados com `parsed`, depois converte `undefined` para `null` com `parsed.description ?? null` antes de chamar o service.
 
 ### 4. Routes
 

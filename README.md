@@ -25,6 +25,8 @@ Cada etapa está documentada em um arquivo específico e implementada em uma bra
 
 > **Nota**: As branches serão criadas conforme cada etapa é implementada. Use `git checkout <nome-da-branch>` para acessar o código de uma etapa específica.
 
+> **Atenção (etapa 05)**: há uma incompatibilidade de tipos entre o schema Zod e o model de produto. O campo `description` no schema é `z.string().optional()` (`string | undefined`), mas o model declara `string | null`. O controller resolve isso convertendo `undefined → null` com `parsed.description ?? null` antes de repassar os dados ao service. Veja os detalhes em [etapa-05-product.md](etapas-dev/etapa-05-product.md).
+
 ---
 
 ## Sumário

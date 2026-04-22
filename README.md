@@ -13,8 +13,8 @@ Cada etapa está documentada em um arquivo específico e implementada em uma bra
 | Etapa | Descrição                         | Documentação                                                                |                   Branch                    |
 | :---: | --------------------------------- | --------------------------------------------------------------------------- | :-----------------------------------------: |
 |  01   | Setup inicial do projeto          | [etapa-01-setup.md](etapas-dev/etapa-01-setup.md)                           | [`feat-etapa-01`](../../tree/feat-etapa-01) |
-|  02   | Banco de dados (schema e conexão) | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md)         |               `feat-etapa-02`               |
-|  03   | Models (interfaces TypeScript)    | [etapa-03-models.md](etapas-dev/etapa-03-models.md)                         |               `feat-etapa-03`               |
+|  02   | Banco de dados (schema e conexão) | [etapa-02-banco-de-dados.md](etapas-dev/etapa-02-banco-de-dados.md)         | [`feat-etapa-02`](../../tree/feat-etapa-02) |
+|  03   | Models (interfaces TypeScript)    | [etapa-03-models.md](etapas-dev/etapa-03-models.md)                         | [`feat-etapa-03`](../../tree/feat-etapa-03) |
 |  04   | Erros e validações                | [etapa-04-erros-e-validacoes.md](etapas-dev/etapa-04-erros-e-validacoes.md) |               `feat-etapa-04`               |
 |  05   | Entidade Product (completa)       | [etapa-05-product.md](etapas-dev/etapa-05-product.md)                       |               `feat-etapa-05`               |
 |  06   | Entidade Customer (completa)      | [etapa-06-customer.md](etapas-dev/etapa-06-customer.md)                     |               `feat-etapa-06`               |

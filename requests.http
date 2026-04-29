@@ -1,0 +1,105 @@
+### ---------- PRODUCTS ----------
+
+### Listar todos os produtos
+GET http://localhost:3000/products
+
+### Buscar um produto pelo id
+GET http://localhost:3000/products/1
+
+### Criar um produto
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Açúcar Refinado 1kg",
+  "description": "Açúcar cristal refinado",
+  "price": 5.90
+}
+
+### Atualizar parcialmente um produto
+PUT http://localhost:3000/products/1
+Content-Type: application/json
+
+{
+  "price": 29.90
+}
+
+### Remover um produto
+DELETE http://localhost:3000/products/1
+
+
+### ---------- CUSTOMERS ----------
+
+### Listar todos os clientes
+GET http://localhost:3000/customers
+
+### Buscar um cliente
+GET http://localhost:3000/customers/1
+
+### Criar um cliente
+POST http://localhost:3000/customers
+Content-Type: application/json
+
+{
+  "name": "Ana Souza",
+  "email": "ana@email.com",
+  "phone": "11988887777"
+}
+
+### Atualizar um cliente
+PUT http://localhost:3000/customers/1
+Content-Type: application/json
+
+{
+  "phone": "11911112222"
+}
+
+### Listar pedidos de um cliente
+GET http://localhost:3000/customers/1/orders
+
+### Remover um cliente
+DELETE http://localhost:3000/customers/1
+
+
+### ---------- ORDERS ----------
+
+### Listar todos os pedidos
+GET http://localhost:3000/orders
+
+### Criar um pedido
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "customer_id": 1,
+  "items": [
+    { "product_id": 1, "quantity": 2 },
+    { "product_id": 2, "quantity": 3 }
+  ]
+}
+
+### Ver um pedido específico (com itens)
+GET http://localhost:3000/orders/1
+
+
+### ---------- CASOS DE ERRO (para testar validações) ----------
+
+### 400 — payload inválido (sem name)
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "price": 10
+}
+
+### 404 — produto inexistente
+GET http://localhost:3000/products/9999
+
+### 409 — e-mail já cadastrado
+POST http://localhost:3000/customers
+Content-Type: application/json
+
+{
+  "name": "Duplicado",
+  "email": "maria@email.com"
+}
